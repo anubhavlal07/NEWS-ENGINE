@@ -17,6 +17,7 @@ xhr.onload = function () {
     let newsHtml = "";
     articles.forEach(function (element, index) {
       console.log(element, index);
+      var time = new Date(element.publishedAt).toLocaleTimeString();
       let news = `<div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading${index}">
                                 <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
@@ -26,7 +27,7 @@ xhr.onload = function () {
                             </h2>
                             <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
                                 data-bs-parent="#newsAccordion">
-                                <div class="accordion-body">${element.description} — ${element.source.name} <br> <a href="${element.url}" target="_blank"> Read Full Article </a></div>
+                                <div class="accordion-body">${element.description} — ${element.source.name} on ${time} <br> <a href="${element.url}" target="_blank"> Read Entire Article </a></div>
                             </div>
                         </div>`;
       newsHtml += news;
