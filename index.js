@@ -27,7 +27,7 @@ xhr.onload = function () {
                             </h2>
                             <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
                                 data-bs-parent="#newsAccordion">
-                                <div class="accordion-body">${element.description} — ${element.source.name} on ${time} <br> <a href="${element.url}" target="_blank"> Read Entire Article </a></div>
+                                <div class="accordion-body">${element.description} — ${element.source.name} at ${time} <br> <a href="${element.url}" target="_blank"> Read Entire Article </a></div>
                             </div>
                         </div>`;
       newsHtml += news;
