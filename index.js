@@ -17,7 +17,8 @@ xhr.onload = function () {
     let newsHtml = "";
     articles.forEach(function (element, index) {
       console.log(element, index);
-      var time = new Date(element.publishedAt).toLocaleTimeString();
+      let time = new Date(element.publishedAt).toLocaleTimeString();
+      // console.log(time);
       let news = `<div class="accordion-item">
                             <h2 class="accordion-header" id="flush-heading${index}">
                                 <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
@@ -27,6 +28,7 @@ xhr.onload = function () {
                             </h2>
                             <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
                                 data-bs-parent="#newsAccordion">
+                                <img src="${element.image}" class="img-fluid rounded mx-auto d-block" alt="${element.title}">
                                 <div class="accordion-body">${element.description} — ${element.source.name} at ${time} <br> <a href="${element.url}" target="_blank"> Read Entire Article </a></div>
                             </div>
                         </div>`;
@@ -71,18 +73,19 @@ if (document.addEventListener) {
 };
 
 // To set a running time stamp in the page
-// get a new date (locale machine date time)
-var date = new Date();
 setInterval(() => {
+  // get a new date (locale machine date time)
+  var date = new Date();
   // get the date as a string
   var n = date.toDateString();
   // get the time as a string
   var time = date.toLocaleTimeString();
 
   // find the html element with the id of time
-  // set the innerHTML of that element to the date a space the time
+  // set the innerHTML of that element to the current time stamp
   document.getElementById("time").innerHTML = n + ", " + time;
 }, 1000);
 
 // Dynamic year Footer
-document.getElementById("footer").innerHTML= footer.innerHTML += `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${ date.getFullYear()} All Rights Reserved.`
+let year = new Date().getFullYear();
+document.getElementById("footer").innerHTML= `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`
