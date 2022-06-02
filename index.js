@@ -68,12 +68,12 @@ if (document.addEventListener) {
   document.attachEvent("oncontextmenu", function () {
     window.event.returnValue = false;
   });
-}
+};
 
+// To set a running time stamp in the page
+// get a new date (locale machine date time)
+var date = new Date();
 setInterval(() => {
-  // To set a running time stamp in the page
-  // get a new date (locale machine date time)
-  var date = new Date();
   // get the date as a string
   var n = date.toDateString();
   // get the time as a string
@@ -83,3 +83,6 @@ setInterval(() => {
   // set the innerHTML of that element to the date a space the time
   document.getElementById("time").innerHTML = n + ", " + time;
 }, 1000);
+
+// Dynamic year Footer
+document.getElementById("footer").innerHTML= footer.innerHTML += `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${ date.getFullYear()} All Rights Reserved.`
