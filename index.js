@@ -1,47 +1,55 @@
-const apiKey = "ec33565ea65549e8a9776e5cfcf85da7";
+const apiKey = "093008df13c48a42f47b697c2f27ad20";
 let newsAccordion = document.getElementById("newsAccordion");
 
-// Create an ajax get request
-const xhr = new XMLHttpRequest();
-xhr.open(
-  "GET",
-  `https://newsapi.org/v2/top-headlines?country=in&apiKey=${apiKey}`,
-  true
-);
-
-// What to do when response is ready
-xhr.onload = function () {
-  if (this.status === 200) {
-    let json = JSON.parse(this.responseText);
+var requestOptions = {
+  method: "GET",
+  redirect: "follow",
+  headers: {
+    "x-api-key": "8KFD4NFYAXrmdT97U_DM2KeXXLxQGT3DDutstGqGUsM",
+  },
+};
+fetch(
+  `https://api.newscatcherapi.com/v2/latest_headlines?countries=in&lang=en`,
+  requestOptions
+)
+  .then((response) => response.text())
+  .then((result) => {
+    let json = JSON.parse(result);
+    console.log(json);
     let articles = json.articles;
     let newsHtml = "";
     articles.forEach(function (element, index) {
       console.log(element, index);
-      let time = new Date(element.publishedAt).toLocaleTimeString();
+      let time = new Date(element.published_date).toLocaleTimeString();
       let news = `<div class="accordion-item">
-            <h2 class="accordion-header" id="flush-heading${index}">
-                <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
-                    ${element.title}
-                </button>
-            </h2>
-            <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
-                data-bs-parent="#newsAccordion">
-                <img src="${element.urlToImage}" class="img-fluid rounded mx-auto d-block" alt="${element.title}">
-                <div class="accordion-body">
-                <div>${element.description} — ${element.source.name} at ${time}</div>
-                <a href="${element.url}" target="_blank"> Read Entire Article </a></div>
-            </div>
-        </div>`;
+      <h2 class="accordion-header" id="flush-heading${index}">
+          <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
+              data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
+              ${element.title}
+          </button>
+      </h2>
+      <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
+          data-bs-parent="#newsAccordion">
+          <img src="${element.media}" class="img-fluid rounded mx-auto d-block" alt="${element.title}">
+          <div class="accordion-body">
+          <div class="float-right">Source(twitter) : ${element.twitter_account} <br> Time: ${time}</div>
+          <div>${element.summary}</div>
+          <div> <a href="${element.link}" target="_blank"> Read Entire Article </a></div></div>
+      </div>
+  </div>`;
+
       newsHtml += news;
     });
     newsAccordion.innerHTML = newsHtml;
-  } else {
-    console.log("Sorry Some Error Occured !");
-  }
-};
+  })
+  .catch((error) => console.log("error", error));
 
-xhr.send();
+const xhr = new XMLHttpRequest();
+xhr.open(
+  "GET",
+  `https://gnews.io/api/v4/top-headlines?&topic=technology&lang=en&token=${apiKey}`,
+  true
+);
 
 // To set a running time stamp in the page
 setInterval(() => {
@@ -93,4 +101,3 @@ document.getElementById(
       window.event.returnValue = false;
     });
   };
-  
