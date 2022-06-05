@@ -72,7 +72,7 @@ document.getElementById(
 ).innerHTML = `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from user
-/*(document.onkeydown = function (event) {
+(document.onkeydown = function (event) {
     if (event.keyCode == 123) {
       return false;
     } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
@@ -101,7 +101,3 @@ document.getElementById(
       window.event.returnValue = false;
     });
   };
-<<<<<<< HEAD
-=======
-  */
->>>>>>> c114ea0bfe3d055fd48cc7afdffe91a2f94945ad
