@@ -44,13 +44,6 @@ fetch(
   })
   .catch((error) => console.log("error", error));
 
-const xhr = new XMLHttpRequest();
-xhr.open(
-  "GET",
-  `https://gnews.io/api/v4/top-headlines?&topic=technology&lang=en&token=${apiKey}`,
-  true
-);
-
 // To set a running time stamp in the page
 setInterval(() => {
   // get a new date (locale machine date time)
