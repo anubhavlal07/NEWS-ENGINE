@@ -1,6 +1,6 @@
 const apiKey = "093008df13c48a42f47b697c2f27ad20";
 let newsAccordion = document.getElementById("newsAccordion");
-
+var headlineCount = 40;
 var requestOptions = {
   method: "GET",
   redirect: "follow",
@@ -9,7 +9,7 @@ var requestOptions = {
   },
 };
 fetch(
-  `https://api.newscatcherapi.com/v2/latest_headlines?countries=in&lang=en`,
+  `https://api.newscatcherapi.com/v2/latest_headlines?countries=in&lang=en&page_size=${headlineCount}`,
   requestOptions
 )
   .then((response) => response.text())
@@ -19,9 +19,10 @@ fetch(
     let articles = json.articles;
     let newsHtml = "";
     articles.forEach(function (element, index) {
-      console.log(element, index);
-      let time = new Date(element.published_date).toLocaleTimeString();
-      let news = `<div class="accordion-item">
+      if (element.twitter_account != null && element.media != null) {
+        console.log(element, index);
+        let time = new Date(element.published_date).toLocaleTimeString();
+        let news = `<div class="accordion-item">
       <h2 class="accordion-header" id="flush-heading${index}">
           <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
               data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
@@ -38,7 +39,8 @@ fetch(
       </div>
   </div>`;
 
-      newsHtml += news;
+        newsHtml += news;
+      }
     });
     newsAccordion.innerHTML = newsHtml;
   })
