@@ -31,11 +31,11 @@ fetch(
       </h2>
       <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
           data-bs-parent="#newsAccordion">
-          <img src="${element.media}" class="img-fluid rounded mx-auto d-block" alt="${element.title}">
+          <img src="${element.media}" class="img-fluid mx-auto d-block" alt="${element.title}">
           <div class="accordion-body">
-          <div class="float-right">Source(twitter) : ${element.twitter_account} <br> Time: ${time}</div>
+          <h6 class="card-subtitle mb-2 text-muted">${element.twitter_account} at ${time}</h6>
           <div>${element.summary}</div>
-          <div> <a href="${element.link}" target="_blank"> Read Entire Article </a></div></div>
+          <a href="${element.link}" target="_blank" class="card-link text-black">Read Entire Article</a></div>
       </div>
   </div>`;
 
@@ -62,37 +62,35 @@ setInterval(() => {
 
 // Dynamic year Footer
 let year = new Date().getFullYear();
-document.getElementById(
-  "footer"
-).innerHTML = `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
+document.getElementById("footer").innerHTML = `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from user
 (document.onkeydown = function (event) {
-    if (event.keyCode == 123) {
-      return false;
-    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
-      return false;
-    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
-      return false;
-    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 86) {
-      return false;
-    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 117) {
-      return false;
-    } else if (event.ctrlKey && event.keyCode == 85) {
-      return false;
-    }
-  }),
-    false;
-  if (document.addEventListener) {
-    document.addEventListener(
-      "contextmenu",
-      function (e) {
-        e.preventDefault();
-      },
-      false
-    );
-  } else {
-    document.attachEvent("oncontextmenu", function () {
-      window.event.returnValue = false;
-    });
-  };
+  if (event.keyCode == 123) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 86) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 117) {
+    return false;
+  } else if (event.ctrlKey && event.keyCode == 85) {
+    return false;
+  }
+}),
+  false;
+if (document.addEventListener) {
+  document.addEventListener(
+    "contextmenu",
+    function (e) {
+      e.preventDefault();
+    },
+    false
+  );
+} else {
+  document.attachEvent("oncontextmenu", function () {
+    window.event.returnValue = false;
+  });
+}
