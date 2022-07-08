@@ -1,11 +1,11 @@
-const apiKey = "093008df13c48a42f47b697c2f27ad20";
+const apiKey = "wUwZ1hp9tFTQmycG-zXkAjVshyF0m20-oXc5jm1Mxhw";
 let newsAccordion = document.getElementById("newsAccordion");
 var headlineCount = 40;
 var requestOptions = {
   method: "GET",
   redirect: "follow",
   headers: {
-    "x-api-key": "8KFD4NFYAXrmdT97U_DM2KeXXLxQGT3DDutstGqGUsM",
+    "x-api-key": `${apiKey}`,
   },
 };
 fetch(
@@ -19,7 +19,7 @@ fetch(
     let articles = json.articles;
     let newsHtml = "";
     articles.forEach(function (element, index) {
-      if (element.twitter_account != null && element.media != null) {
+      if (element.twitter_account != null && element.media != null && element.summary != "") {
         console.log(element, index);
         let time = new Date(element.published_date).toLocaleTimeString();
         let news = `<div class="accordion-item">
@@ -51,18 +51,18 @@ setInterval(() => {
   // get a new date (locale machine date time)
   var date = new Date();
   // get the date as a string
-  var n = date.toDateString();
+  var currentDate = date.toDateString();
   // get the time as a string
   var time = date.toLocaleTimeString();
 
   // find the html element with the id of time
   // set the innerHTML of that element to the current time stamp
-  document.getElementById("time").innerHTML = n + ", " + time;
+  document.getElementById("time").innerHTML = currentDate + ", " + time;
 }, 1000);
 
 // Dynamic year Footer
 let year = new Date().getFullYear();
-document.getElementById("footer").innerHTML = `Created by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
+document.getElementById("footer").innerHTML = `Developed by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from user
 (document.onkeydown = function (event) {
