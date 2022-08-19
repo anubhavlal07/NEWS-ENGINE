@@ -1,4 +1,4 @@
-const apiKey = "wUwZ1hp9tFTQmycG-zXkAjVshyF0m20-oXc5jm1Mxhw";
+const apiKey = "ci8h9lIBHSj_-I9xkry8c5x9ttTjWZbsosOEy_9Bhsc";
 let newsAccordion = document.getElementById("newsAccordion");
 var headlineCount = 40;
 var requestOptions = {
