@@ -5,52 +5,35 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="1200" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
     <link rel="icon" href="icons8-news-96.png" type="image/icon type">
     <title>BHARAT NEWS</title>
-    <style>
-        body {
-            background-color: #212529;
-        }
+    <link rel="stylesheet" href="./style.css">
 
-        footer {
-            padding: 15px 23px;
-            color: #fff;
-            text-align: center;
-        }
-
-        footer span a {
-            color: #40e0d0;
-            text-decoration: none;
-        }
-
-        footer span a:hover {
-            color: #fff;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-dark bg-dark">
-        <div class="container-fluid d-flex justify-content-center">
-            <a class="navbar-brand" href="#">
-                <img src="./icons8-news-64.png" alt="" width="50" height="40" class="d-inline-block align-text-top" />
-                BHARAT NEWS
-            </a>
+    <div id="parent">
+        <nav class="navbar navbar-dark bg-dark">
+            <div class="container-fluid d-flex justify-content-center">
+                <a class="navbar-brand" href="#">
+                    <img src="./icons8-news-64.png" alt="" width="50" height="40"
+                        class="d-inline-block align-text-top" />
+                    BHARAT NEWS
+                </a>
+            </div>
+        </nav>
+        <div class="container">
+            <h6 class="d-flex justify-content-center text-white" id="time"></h6>
+            <h4 class="d-flex justify-content-center my-4 text-white">Today's Headlines</h4>
+            <hr class="text-white">
+            <div class="accordion accordion-flush" id="newsAccordion"></div>
         </div>
-    </nav>
-    <div class="container">
-        <h6 class="d-flex justify-content-center text-white" id="time"></h6>
-        <h4 class="d-flex justify-content-center my-4 text-white">Today's Headlines</h4>
-        <hr class="text-white">
-        <div class="accordion accordion-flush" id="newsAccordion"></div>
+        <footer><span id="footer"></span></footer>
     </div>
-    <footer><span id="footer"></span></footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
