@@ -1,4 +1,4 @@
-const apiKey = "ci8h9lIBHSj_-I9xkry8c5x9ttTjWZbsosOEy_9Bhsc";
+const apiKey = "vNLw6hj1HAsjNquPZk2h-UVW8aTCUkLPsSkK9IVqMiM";
 let newsAccordion = document.getElementById("newsAccordion");
 let errorPage = document.getElementById("parent");
 var headlineCount = 40;
@@ -40,8 +40,8 @@ fetch(
           <a href="${element.link}" target="_blank" class="card-link text-black">Read Entire Article</a></div>
       </div>
        </div>`;
+       newsHtml += news;
         }
-        newsHtml += news;
       });
       newsAccordion.innerHTML = newsHtml;
     }
@@ -69,35 +69,35 @@ setInterval(() => {
 let year = new Date().getFullYear();
 document.getElementById("footer").innerHTML = `Developed by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
-// Diable input from user
-// (document.onkeydown = function (event) {
-//   if (event.keyCode == 123) {
-//     return false;
-//   } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
-//     return false;
-//   } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
-//     return false;
-//   } else if (event.ctrlKey && event.shiftKey && event.keyCode == 86) {
-//     return false;
-//   } else if (event.ctrlKey && event.shiftKey && event.keyCode == 117) {
-//     return false;
-//   } else if (event.ctrlKey && event.keyCode == 85) {
-//     return false;
-//   }
-// }),
-//   false;
-// if (document.addEventListener) {
-//   document.addEventListener(
-//     "contextmenu",
-//     function (e) {
-//       e.preventDefault();
-//     },
-//     false
-//   );
-// } else {
-//   document.attachEvent("oncontextmenu", function () {
-//     window.event.returnValue = false;
-//   });
-// }
+// Diable input from users
+(document.onkeydown = function (event) {
+  if (event.keyCode == 123) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 67) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 86) {
+    return false;
+  } else if (event.ctrlKey && event.shiftKey && event.keyCode == 117) {
+    return false;
+  } else if (event.ctrlKey && event.keyCode == 85) {
+    return false;
+  }
+}),
+  false;
+if (document.addEventListener) {
+  document.addEventListener(
+    "contextmenu",
+    function (e) {
+      e.preventDefault();
+    },
+    false
+  );
+} else {
+  document.attachEvent("oncontextmenu", function () {
+    window.event.returnValue = false;
+  });
+}
 
 
