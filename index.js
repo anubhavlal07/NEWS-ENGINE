@@ -1,4 +1,4 @@
-const apiKey = "iJiHVsGAUUJyJdfUYw4dqhpgSksgM-qGlRywBNB4KMg";
+const apiKey = "1N9iXt2N8fR0YWuBAgYh0QqVOPzuFhoqapg0M6anMw0";
 let newsAccordion = document.getElementById("newsAccordion");
 let errorPage = document.getElementById("parent");
 var headlineCount = 40;
@@ -59,6 +59,7 @@ fetch(
       errorPage.innerHTML = newsHtml;
     }
     // newsAccordion.innerHTML = newsHtml;
+    console.clear();
   })
   .catch((error) => console.log("error", error));
 
