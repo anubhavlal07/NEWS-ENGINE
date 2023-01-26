@@ -75,7 +75,7 @@ setInterval(() => {
 let year = new Date().getFullYear();
 document.getElementById(
   "footer"
-).innerHTML = `Developed by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
+).innerHTML = `Developed and Maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from users
 (document.onkeydown = function (event) {
