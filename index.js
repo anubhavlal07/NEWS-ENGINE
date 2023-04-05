@@ -1,54 +1,39 @@
 const apiKey = "vt6oPzpOUKTFRptRg5o3S7RcF1GqlFvedg-9OroXq_4";
 let newsAccordion = document.getElementById("newsAccordion");
 let errorPage = document.getElementById("parent");
-var headlineCount = 40;
-var requestOptions = {
-  method: "GET",
-  redirect: "follow",
-  headers: {
-    "x-api-key": `${apiKey}`,
-  },
-};
-fetch(
-  `https://api.newscatcherapi.com/v2/latest_headlines?countries=in&ranked_only=true&lang=en&when=1h`,
-  requestOptions
-)
-  .then((response) => response.text())
+fetch(`https://inshorts.deta.dev/news?category=all`)
+  .then((response) => response.json())
   .then((result) => {
-    let json = JSON.parse(result);
-    console.log(json);
-    let articles = json.articles;
+    console.log(result)
+    let articles = result.data;
+    console.log(articles);
     let newsHtml = "";
-    if (json.status != "error") {
-      articles.forEach(function (element, index) {
-        if (
-          element.author != "" &&
-          element.twitter_account != null &&
-          element.media != null &&
-          element.summary != ""
-        ) {
-          console.log(element, index);
-          let time = new Date(element.published_date).toLocaleTimeString();
+    if (result.success == true) {
+      articles.forEach(function (articles, index) {
+        if (articles.author != "") {
+          console.log(articles, index);
           let news = `<div class="accordion-item">
       <h2 class="accordion-header" id="flush-heading${index}">
           <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
               data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
-              ${element.title}
+              ${articles.title}
           </button>
       </h2>
       <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
           data-bs-parent="#newsAccordion">
-          <img src="${element.media}" class="img-fluid mx-auto d-block" alt="${element.author}">
+          <img src="${articles.imageUrl}" class="img-fluid mx-auto d-block" alt="${articles.author}">
           <div class="accordion-body">
-          <h6 class="card-subtitle mb-2 text-muted">Article by ${element.author} from ${element.twitter_account} at ${time}</h6>
-          <div>${element.summary}</div>
-          <a href="${element.link}" target="_blank" class="card-link text-black">Read Entire Article</a></div>
+          <h6 class="card-subtitle mb-2 text-muted">Article by ${articles.author} at ${articles.time}</h6>
+          <div>${articles.content}</div>
+          <a href="${articles.readMoreUrl}" target="_blank" class="card-link text-black">Read Entire Article</a></div>
       </div>
        </div>`;
           newsHtml += news;
         }
       });
       newsAccordion.innerHTML = newsHtml;
+      console.clear();
+      console.log("Congratulations, you've officially reached ultimate nerd status. Impressive 😂👌👍");
     } else {
       let news = `<section class="centered"">
       <h6 class="d-flex justify-content-center text-white" id="time"></h6>
@@ -58,12 +43,9 @@ fetch(
       newsHtml += news;
       errorPage.innerHTML = newsHtml;
     }
-    // newsAccordion.innerHTML = newsHtml;
-    console.clear();
   })
   .catch((error) => console.log("error", error));
 
-// To set a running time stamp in the page
 setInterval(() => {
   var date = new Date();
   var currentDate = date.toDateString();
@@ -75,7 +57,7 @@ setInterval(() => {
 let year = new Date().getFullYear();
 document.getElementById(
   "footer"
-).innerHTML = `Developed and Maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
+).innerHTML = `Developed and maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from users
 (document.onkeydown = function (event) {
