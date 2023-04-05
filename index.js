@@ -1,4 +1,4 @@
-const apiKey = "1N9iXt2N8fR0YWuBAgYh0QqVOPzuFhoqapg0M6anMw0";
+const apiKey = "vt6oPzpOUKTFRptRg5o3S7RcF1GqlFvedg-9OroXq_4";
 let newsAccordion = document.getElementById("newsAccordion");
 let errorPage = document.getElementById("parent");
 var headlineCount = 40;
