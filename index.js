@@ -1,22 +1,24 @@
 let newsAccordion = document.getElementById("newsAccordion");
 let errorPage = document.getElementById("parent");
-fetch(`https://inshorts.deta.dev/news?category=all`)
-  .then((response) => response.json())
-  .then((result) => {
-    // console.log(result);
-    let articles = result.data;
-    articles = articles.sort((a, b) => {
-      if (a.time > b.time) {
-        return -1;
-      }
-    });
-    let newsHtml = "";
-    if (result.success == true) {
-      articles.forEach(function (articles, index) {
-        // console.log(articles);
-        if (articles.author != "") {
-          // console.log(articles, index);
-          let news = `<div class="accordion-item">
+let getNews = () => {
+  fetch(`https://inshorts.deta.dev/news?category=all`)
+    .then((response) => response.json())
+    .then((result) => {
+      // console.log(result);
+      let articles = result.data;
+      // Sort the data in reverse chronological order
+      articles = articles.sort((a, b) => {
+        if (a.time > b.time) {
+          return -1;
+        }
+      });
+      // console.log(articles);
+      let newsHtml = "";
+      if (result.success == true) {
+        articles.forEach(function (articles, index) {
+          if (articles.author != "") {
+            // console.log(articles, index);
+            let news = `<div class="accordion-item">
   <h2 class="accordion-header" id="flush-heading${index}">
     <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
       data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
@@ -33,26 +35,31 @@ fetch(`https://inshorts.deta.dev/news?category=all`)
     </div>
   </div>
 </div>`;
-          newsHtml += news;
-        }
-      });
-      newsAccordion.innerHTML = newsHtml;
-      console.clear();
-      console.log(
-        "Congratulations, you've officially reached ultimate nerd status. Impressive 😂👌👍"
-      );
-    } else {
-      let news = `<section class="centered"">
+            newsHtml += news;
+          }
+        });
+        newsAccordion.innerHTML = newsHtml;
+        console.log("Congratulations, you've officially reached ultimate nerd status. Impressive 😂👌👍");
+      } else {
+        let news = `<section class="centered"">
       <h6 class=" d-flex justify-content-center text-white" id="time">
   </h6>
   <h1>401 unauthorized</h1>
   <h3 class="d-flex justify-content-center text-white">🙁 | The developer forgot to pay for the API | 🙁</h6>
 </section>`;
-      newsHtml += news;
-      errorPage.innerHTML = newsHtml;
-    }
-  })
-  .catch((error) => console.log("error", error));
+        newsHtml += news;
+        errorPage.innerHTML = newsHtml;
+      }
+    })
+    .catch((error) => console.log("error", error));
+};
+getNews();
+// Refresh the articles every 5 minutes
+setInterval(() => {
+  getNews();
+  console.clear();
+  console.log("Data fetched automatically after 5 minutes");
+}, 300000);
 
 setInterval(() => {
   var date = new Date();
@@ -63,10 +70,7 @@ setInterval(() => {
 
 // Dynamic year Footer
 let year = new Date().getFullYear();
-document.getElementById(
-  "footer"
-).innerHTML = `Developed and maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> |
-&copy; ${year} All Rights Reserved.`;
+document.getElementById("footer").innerHTML = `Developed and maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
 
 // Diable input from users
 (document.onkeydown = function (event) {
