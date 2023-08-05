@@ -1,78 +1,137 @@
-let newsAccordion = document.getElementById("newsAccordion");
-let errorPage = document.getElementById("parent");
-let getNews = () => {
-  fetch(`https://inshorts.deta.dev/news?category=all`)
-    .then((response) => response.json())
-    .then((result) => {
-      // console.log(result);
-      let articles = result.data;
-      // Sort the data in reverse chronological order
-      articles = articles.sort((a, b) => {
-        if (a.time > b.time) {
-          return -1;
-        }
-      });
-      // console.log(articles);
-      let newsHtml = "";
-      if (result.success == true) {
-        articles.forEach(function (articles, index) {
-          if (articles.author != "") {
-            // console.log(articles, index);
-            let news = `<div class="accordion-item">
-  <h2 class="accordion-header" id="flush-heading${index}">
-    <button class="accordion-button collapsed bg-info text-white" type="button" data-bs-toggle="collapse"
-      data-bs-target="#flush-collapse${index}" aria-expanded="false" aria-controls="flush-collapse${index}">
-      ${articles.title}
-    </button>
-  </h2>
-  <div id="flush-collapse${index}" class="accordion-collapse collapse" aria-labelledby="flush-heading${index}"
-    data-bs-parent="#newsAccordion">
-    <img src="${articles.imageUrl}" class="img-fluid mx-auto d-block" alt="${articles.author}">
-    <div class="accordion-body">
-      <h6 class="card-subtitle mb-2 text-muted">Article by ${articles.author} at ${articles.time}</h6>
-      <div>${articles.content}</div>
-      <a href="${articles.readMoreUrl}" target="_blank" class="card-link text-black">Read Entire Article</a>
-    </div>
-  </div>
-</div>`;
-            newsHtml += news;
-          }
-        });
-        newsAccordion.innerHTML = newsHtml;
-        console.log("Congratulations, you've officially reached ultimate nerd status. Impressive 😂👌👍");
-      } else {
-        let news = `<section class="centered"">
-      <h6 class=" d-flex justify-content-center text-white" id="time">
-  </h6>
-  <h1>401 unauthorized</h1>
-  <h3 class="d-flex justify-content-center text-white">🙁 | The developer forgot to pay for the API | 🙁</h6>
-</section>`;
-        newsHtml += news;
-        errorPage.innerHTML = newsHtml;
-      }
-    })
-    .catch((error) => console.log("error", error));
-};
-getNews();
-// Refresh the articles every 5 minutes
-setInterval(() => {
-  getNews();
-  console.clear();
-  console.log("Data fetched automatically after 5 minutes");
-}, 300000);
+// Here are the different messages we'll use for creating the 500 displayable message
+const messages = [
+  [
+    "Whoops.",
+    "Oops.",
+    "Excuse me.",
+    "Oh Dear.",
+    "Hm...",
+    "This is awkward.",
+    "Well gosh!",
+  ],
+  [
+    "It appears",
+    "Looks like",
+    "Unfortunately,",
+    "It just so happens that ",
+    "Sadly,",
+    "Seemingly from nowhere",
+  ],
+  [
+    "there was an error.",
+    "I goofed up.",
+    "a bad thing happend.",
+    "the code crashed.",
+    "a bug appeared.",
+    "someone did a naughty.",
+    "the code threw a tantrum.",
+    "the website had a bad day.",
+    "my code pooped out.",
+  ],
+  [
+    "Sorry.",
+    "Apologies.",
+    "My bad.",
+    "Sad day.",
+    "I am quite contrite.",
+    "Beg pardon.",
+  ],
+];
 
-setInterval(() => {
-  var date = new Date();
-  var currentDate = date.toDateString();
-  var time = date.toLocaleTimeString();
-  document.getElementById("time").innerHTML = currentDate + ", " + time;
-}, 1000);
+// These are the different elements we'll be populating. They are in the same order as the messages array
+const messageElements = [
+  document.querySelector("#js-whoops"),
+  document.querySelector("#js-appears"),
+  document.querySelector("#js-error"),
+  document.querySelector("#js-apology"),
+];
 
-// Dynamic year Footer
-let year = new Date().getFullYear();
-document.getElementById("footer").innerHTML = `Developed and maintained by <a href="https://github.com/anubhavlal07" target="_blank">Anubhav Lal</a> | &copy; ${year} All Rights Reserved.`;
+// we'll use this element for width calculations
+const widthElement = document.querySelector("#js-hidden");
+// keeping track of the message we just displayed last
+let lastMessageType = -1;
+// How often the page should swap messages
+let messageTimer = 3000;
 
-// Diable input from users
+// on document load, setup the initial messages AND set a timer for setting messages
+document.addEventListener("DOMContentLoaded", (event) => {
+  setupMessages();
+  setInterval(() => {
+    swapMessage();
+  }, messageTimer);
+});
+
+// Get initial messages for each message element
+function setupMessages() {
+  messageElements.forEach((element, index) => {
+    let newMessage = getNewMessage(index);
+    element.innerText = newMessage;
+  });
+}
+
+// set the width of a given element to match its text's width
+function calculateWidth(element, message) {
+  // use our dummy hidden element to get the text's width. Then use that to set the real element's width
+  widthElement.innerText = message;
+  let newWidth = widthElement.getBoundingClientRect().width;
+  element.style.width = `${newWidth}px`;
+}
+
+// swap a message for one of the message types
+function swapMessage() {
+  let toSwapIndex = getNewSwapIndex();
+  let newMessage = getNewMessage(toSwapIndex);
+  // Animate the disappearing, setting width, and reappearing
+  messageElements[toSwapIndex].style.lineHeight = "0";
+  // once line height is done transitioning, set element width & message
+  setTimeout(() => {
+    // make sure the element has a width set for transitions
+    checkWidthSet(toSwapIndex, messageElements[toSwapIndex].innerText);
+    // set the new text
+    messageElements[toSwapIndex].innerText = newMessage;
+    // set the new width
+    calculateWidth(messageElements[toSwapIndex], newMessage);
+  }, 200);
+  // once width is done, transition the lineheight back to 1 so we can view the message
+  setTimeout(() => {
+    messageElements[toSwapIndex].style.lineHeight = "1.2";
+  }, 400);
+}
+
+// We need to make sure that the element at the passed index has a width set so we can use transitions
+function checkWidthSet(index, message) {
+  if (false == messageElements[index].style.width) {
+    messageElements[
+      index
+    ].style.width = `${messageElements[index].clientWidth}px`;
+  }
+}
+
+// Return a new index to swap message in. Should not be the same as the last message type swapped
+function getNewSwapIndex() {
+  let newMessageIndex = Math.floor(Math.random() * messages.length);
+  while (lastMessageType == newMessageIndex) {
+    newMessageIndex = Math.floor(Math.random() * messages.length);
+  }
+  return newMessageIndex;
+}
+
+// Get a new message for the message element.
+function getNewMessage(toSwapIndex) {
+  const messagesArray = messages[toSwapIndex];
+  const previousMessage = messageElements[toSwapIndex].innerText;
+  // Get a new random index and the message at that index
+  let newMessageIndex = Math.floor(Math.random() * messagesArray.length);
+  let newMessage = messagesArray[newMessageIndex];
+  // let's make sure they aren't the same as the message already there
+  while (newMessage == previousMessage) {
+    newMessageIndex = Math.floor(Math.random() * messagesArray.length);
+    newMessage = messagesArray[newMessageIndex];
+  }
+  return newMessage;
+}
+
+// Disabled Input from keyboard
 (document.onkeydown = function (event) {
   if (event.keyCode == 123) {
     return false;

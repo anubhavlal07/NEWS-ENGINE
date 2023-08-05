@@ -1,43 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Under Maintenance</title>
+    <script src="./index.js" defer></script>
+    <link rel="icon" href="./maintenance.png" type="image/icon type" />
+  </head>
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
-    <link rel="icon" href="icons8-news-96.png" type="image/icon type">
-    <title>BHARAT NEWS</title>
-    <link rel="stylesheet" href="./style.css">
-
-</head>
-
-<body>
-    <div id="parent">
-        <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid d-flex justify-content-center">
-                <a class="navbar-brand" href="#">
-                    <img src="./icons8-news-64.png" alt="BHARAT NEWS" width="50" height="40"
-                        class="d-inline-block align-text-top" />
-                    BHARAT NEWS
-                </a>
-            </div>
-        </nav>
+  <body>
+    <div class="overlay"></div>
+    <div class="stars" aria-hidden="true"></div>
+    <div class="starts2" aria-hidden="true"></div>
+    <div class="stars3" aria-hidden="true"></div>
+    <main class="main">
+      <section class="contact">
+        <h1 class="title">Will Be Back In Sometime</h1>
+        <h2 class="sub-title">Under Maintenance</h2>
         <div class="container">
-            <h6 class="d-flex justify-content-center text-white" id="time"></h6>
-            <h4 class="d-flex justify-content-center my-4 text-white">Today's Headlines</h4>
-            <hr class="text-white">
-            <div class="accordion accordion-flush" id="newsAccordion"></div>
+          <span class="message" id="js-whoops"></span>
+          <span class="message" id="js-appears"></span>
+          <span class="message" id="js-error"></span>
+          <span class="message" id="js-apology"></span>
+          <div><span class="hidden" id="js-hidden"></span></div>
         </div>
-        <footer><span id="footer"></span></footer>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
-        crossorigin="anonymous"></script>
-    <script src="index.js"></script>
-</body>
-
+      </section>
+    </main>
+  </body>
 </html>
